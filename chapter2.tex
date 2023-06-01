@@ -135,3 +135,20 @@ $$
 	wobei $\mathbf{F}\colon\R\rightarrow\R^6$ der Kraft-Momenten-Vektor am End-Effektor und $\boldsymbol{\tau}\colon\R\rightarrow\R^n$ die Drehmomente in Gelenken ist
 	\item Im Geschwindigkeits- und Kraftraum lässt sich die Frage nach der Inversen Kinematik durch die Inverse der Jacobi-Matrix lösen, z.B. Welche Gelenkwinkelgeschwindigkeiten sind notwendig, um eine End-Effektor-Geschwindigkeit zu realisieren? $\rightarrow$ Löse nach $\boldsymbol{\dot{\theta}}(t)$ auf
 \end{itemize}
+\bigskip
+\textbf{Berechnung der Jacobi-Matrix}:
+\begin{itemize}
+	\item Jede Spalte der Jacobi-Matrix gehört zum Gelenk $\theta_i$ der kinematischen Kette
+	\item Wenn $j$-tes Gelenk ein Translationsgelenk ist, das eine Translation in Richtung des Einheitsvektors $\mathbf{z_j}\in\R^3$ durchführt, gilt für die $j$-te Spalte der Jacobi-Matrix:
+	$$J_j(\boldsymbol{\theta})=\left[\begin{matrix}
+		\mathbf{z_j} \\
+		\mathbf{0}
+	\end{matrix}\right]\in\R^6$$
+	\item Wenn $j$-tes Gelenk ein Rotationsgelenk ist, das eine Rotation um die Rotationsachse $\mathbf{z_j}\in\R^3$ an der Position $\mathbf{p_j}\in\R^3$ durchführt, gilt für $j$-te Spalte der Jacobi-Matrix:
+	$$J_j(\boldsymbol{\theta})=\left[\begin{matrix}
+		\mathbf{z_j}\times(\mathbf{f}(\boldsymbol{\theta})-\mathbf{p_j}) \\
+		\mathbf{z_j}
+	\end{matrix}\right]\in\R^6$$
+\end{itemize}
+
+\textit{Beispiel 2/68-72}

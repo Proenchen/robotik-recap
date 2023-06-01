@@ -151,4 +151,51 @@ $$
 	\end{matrix}\right]\in\R^6$$
 \end{itemize}
 
-\textit{Beispiel 2/68-72}
+\textit{Beispiel 2/68-72}\\
+
+\textbf{Kinematische Singularitäten}:
+\begin{itemize}
+	\item \textbf{Definition}: Wenn sich Roboter in einer Konfiguration $\boldsymbol{\theta}_\text{singular}\in C$ befindet, in der er sich nicht instantan in eine oder mehr Richtungen bewegen kann
+	\item Bedeutet, dass Jacobi-Matrix $J(\boldsymbol{\theta})$ keinen vollen Rang bzw. min. zwei linear abhängige Spalten hat, also nicht invertierbar ist
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{images/singular.png}
+	\end{center}
+\end{itemize}
+\bigskip
+\textbf{Manipulierbarkeit}: Maß für die Bewegungsfreiheit des Endeffektors, bzw. wie nahe eine Konfiguration an einer Singularität ist
+\begin{itemize}
+	\item Nutze $J(\boldsymbol{\theta})$ um Einheitskreis der Gelenkwinkel-Geschwindigkeiten in den Raum der Endeffektor-Geschwindigkeiten abzubilden 
+	
+	$\rightarrow$ Resultat: \textbf{Ellipsoid der Manipulierbarkeit}
+	
+	\item Kreis: Bewegungen des Endeffektors in alle Richtungen uneingeschränkt möglich
+	\item Degenerierte Fälle (gestauchtes Ellipsoid): Endeffektor-Bewegung ist in bestimmen Richtungen eingeschränkt
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{images/edm.png}
+	\end{center}
+	\newpage
+	
+	\item Singulärwerte von $J(\boldsymbol{\theta})$ sind die Wurzeln der Eigenwerte von $J(\boldsymbol{\theta})\cdot J(\boldsymbol{\theta})^\top$, also $\sigma_i=\sqrt{\lambda_i}$, wobei $\lambda_i$ ein EW von $J(\boldsymbol{\theta})\cdot J(\boldsymbol{\theta})^\top$ ist
+	\item \textbf{Skalare Maße} für die Manipulierbarkeit:
+	\begin{itemize}
+		\item Kleinster Singulärwert $\mu_1(\boldsymbol{\theta})=\sigma_\text{min} (A(\boldsymbol{\theta}))$
+		\item Inverse Kondition: $\mu_2(\boldsymbol{\theta})=\cfrac{\sigma_\text{min} (A(\boldsymbol{\theta}))}{\sigma_\text{max} (A(\boldsymbol{\theta}))}$
+		\item Determinante: $\mu_3(\boldsymbol{\theta})=\det A(\boldsymbol{\theta})$
+	\end{itemize}
+	\item \textbf{Kraft-Ellipsoid}: Selbiges kann man auch für den Kraftraum einführen
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{images/kraft-ellipsoid.png}
+	\end{center}
+\end{itemize}
+\bigskip
+\textbf{Geometrisches Modell}:
+\begin{itemize}
+	\item \textbf{Einsatzbereiche}: 
+	\begin{itemize}
+		\item Abstandsmessung und Kollisionserkennung
+		\item Graphische Darstellung von Körpern
+		\item Berechnung der Bewegungen von Körpern
+		\item Ermittlung der wirkenden Kräfte und Momente
+	\end{itemize}
+	\item \textbf{Klassifizierung} nach \textbf{Raum} (2D oder 3D) oder \textbf{Grundprimitiven} (Kanten- bzw. Drahtmodelle, Flächen- bzw. Oberflächenmodelle, Volumenmodell)
+\end{itemize}

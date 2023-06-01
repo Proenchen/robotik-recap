@@ -9,13 +9,6 @@ auswirken. Das essentielle Konzept ist die \textbf{Steifigkeit}.
 \textbf{Dynamik} analysiert die Kräfte und Momente, die durch Bewegung und Beschleunigung
 eines Mechanismus und einer zusätzlichen Last entstehen.
 
-\textbf{Terminologie}:
-\begin{center}
-	\includegraphics[width=0.7\textwidth]{images/arm.png}
-\end{center}
-\medskip
-\textbf{Kinematische Kette} ist eine Menge an Gliedern, die durch Gelenke verbunden sind.
-
 \textbf{Freiheitsgrade} (DoF) ist die Anzahl unabhängiger Parameter, die zur kompletten Spezifikation der Lage eines Objekts benötigt werden, z.B. Starrkörper hat in 2D 3 DoF und in 3D 6 DoF.
 
 \textbf{Starrkörperbewegungen werden durch zwei Eigenschaften charakterisiert}:
@@ -52,7 +45,6 @@ eines Mechanismus und einer zusätzlichen Last entstehen.
 	
 	$$A=\irow{\mathbf{e_x'}&\mathbf{e_y'}&\mathbf{e_z'}}\cdot\irow{\mathbf{e_x}&\mathbf{e_y}&\mathbf{e_z}}^{-1}$$
 \end{itemize}
-\pagebreak
 
 \textbf{Bijektive} Endomorphismen nennt man \textbf{Isomorphismen}.
 \begin{itemize}
@@ -70,7 +62,7 @@ eines Mechanismus und einer zusätzlichen Last entstehen.
 	\item SO(3) ist nicht kommutativ: $A\cdot B\cdot \mathbf{x}\neq B\cdot A\cdot \mathbf{x}$ mit $\mathbf{x}\in\R^3$ und $A,B\in\text{SO(3)}$ 
 	\item Für alle $R\in\text{SO(3)}$ ist $R^{-1}=R^\top$, die Inverse kann also leicht berechnet werden
 \end{itemize}
-\medskip
+\pagebreak
 \textbf{Rotationen in 2D}:
 \begin{itemize}
 	\item Rotation in der $xy$-Ebene um $(0,0)$ ist eine \textbf{lineare Transformation}
@@ -102,8 +94,7 @@ eines Mechanismus und einer zusätzlichen Last entstehen.
 	\item \textbf{Redundanz}: Neun Werte für eine Rotationsmatrix
 	\item Probleme im Bereich des maschinellen Lernens
 \end{itemize}
-\pagebreak
-
+\bigskip
 \textbf{Eulerwinkel}:
 \begin{itemize}
 	\item Es ist möglich jede Rotation durch drei Rotationen um jeweils eine Rotationsachse darzustellen
@@ -233,7 +224,7 @@ $\rightarrow$ \textbf{Ziel}: Geschlossene Darstellung von Rotation und Translati
 	\item \textbf{Vorteile}: Kompakt, Anschaulich, Kein Gimbal Lock, Verkettung möglich, Stetige Repräsentation
 	\item \textbf{Nachteil}: Nur Beschreibung von Rotation, keine Translation
 \end{itemize}
-\pagebreak
+\bigskip
 \textbf{SLERP Interpolation}:
 \begin{itemize}
 	\item SLERP Interpolation von $\mathbf{q_1}$ nach $\mathbf{q_2}$ mit Parameter $t\in[0,1]$:	
@@ -243,7 +234,7 @@ $\rightarrow$ \textbf{Ziel}: Geschlossene Darstellung von Rotation und Translati
 	
 	$\Rightarrow$ SLERP berechnet deshalb nicht immer die kürzeste Rotation. Es muss geprüft werden, ob die Rotation von $\mathbf{q_1}$ zu $\mathbf{q_2}$ oder $-\mathbf{q_1}$ zu $\mathbf{q_2}$ kürzer ist
 \end{itemize}
-\bigskip
+\pagebreak
 \textbf{Duale Quaternionen}:
 \begin{itemize}
 	\item Erlauben es auch Translationen zu berücksichtigen

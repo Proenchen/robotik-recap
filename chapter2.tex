@@ -10,7 +10,7 @@
 		\item Ausgabe: Pose des Endeffektors
 		\item z.B. Wo befindet sich meine Hand?
 	\end{itemize}
-	\item \textbf{Indirekte Kinematik}: 
+	\item \textbf{Inverse Kinematik}: 
 	\begin{itemize}
 		\item Eingabe: Zielpose des Endeffektors
 		\item Ausgabe: Gelenkwinkelstellungen
@@ -40,7 +40,7 @@ Für jedes Glied müssen \textbf{6 Parameter} für die Transformation zwischen G
 	\end{itemize}
 	\item \textbf{Parameter des Armelements (DH-Paramerter)}:
 	\begin{itemize}
-		\item \textbf{Armelementlänge} $a_i$ beschreibt den Abstand von $z_{i-1}$ zu $z_i$
+		\item \textbf{Armelementlänge} $a_i$ beschreibt den Abstand von $z_{i-1}$ zu $z_i$ entlang $x_i$
 		\item \textbf{Armelementverdrehung} $\alpha_i$ beschreibt den Winkel von $z_{i-1}$ zu $z_i$ um $x_i$
 		\item \textbf{Gelenkabstand} $d_i$ ist der Abstand zwischen der $x_{i-1}$-Achse und $x_i$-Achse entlang der $z_{i-1}$-Achse
 		\item \textbf{Gelenkwinkel} $\theta_i$ ist der Winkel von $x_{i-1}$ zu $x_i$ um $z_{i-1}$

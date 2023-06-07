@@ -69,6 +69,20 @@ Weiter Regeln siehe \textit{5/46-47}
  	\end{center}
 \end{itemize}
 
-\textit{Beispiel Erstellung des Strukturbildes des Regelkreis: 5/58-67}
+\textit{Beispiel Erstellung des Strukturbildes des Regelkreis: 5/58-67}\\
 
+\textbf{PID-Regler}:
+$$\tau(t)=K_p\theta_d(t)+K_i\int\theta_d(t)\, dt+K_d\dot{\theta}_d(t)$$
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{images/pid.png}
+\end{center}
+Laplace-Transformation liefert die Übertragungsfunktion: $G(s)=K_p+K_i\,\frac{1}{s}+K_ds$
 
+\textbf{Vergleich von Reglern}:
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{images/r-vergleich.png}
+\end{center}
+
+\textbf{Stabilität von Reglern}: s. \textit{Beispiel 5/79-88}
+
+\textbf{Regelungskonzepte für Manipulatoren}: RELEVANT??? \textit{s. 5/ab 92}

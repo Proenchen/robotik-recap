@@ -64,7 +64,9 @@
 	\end{center}
 \end{enumerate}
 
-\textbf{Konstruktion des Wegenetzes} $W$ durch Voronoi-Diagramme, Sichtgraphen oder  Zellzerlegung.\\
+\textbf{Konstruktion des Wegenetzes} $W$ durch Voronoi-Diagramme, Sichtgraphen oder  Zellzerlegung.
+
+\textbf{Suche im Wegenetz} durch Baumsuche oder $A^*$-Algorithmus\\
 
 \textbf{Voronoi-Diagramme}: 
 \begin{itemize}
@@ -77,7 +79,7 @@
 	\item \textbf{Vorteile}: Maximaler Abstand zu Hindernissen
 	\item \textbf{Nachteile}: In der Regel ist der gefunden Weg nicht der kürzeste. Bei wenigen Hindernissen werden nur wenige Wege generiert
 \end{itemize}
-\bigskip
+\pagebreak
 \textbf{Sichtgraphen}:
 \begin{itemize}
 	\item Verbinde jedes Paar von Eckpunkten auf dem Rand von $C_\text{free}$ durch ein gerades Liniensegment, wenn das Segment kein Hindernis schneidet
@@ -108,4 +110,40 @@
 \begin{itemize}
 	\item \textbf{Vorteil}: Einfache Zerlegung und damit einfachere Wegsuche
 	\item \textbf{Nachteil}: Freiraum kann i.A. nur annähernd beschrieben werden
+\end{itemize}
+\bigskip
+\textbf{Baumsuche}:
+\begin{itemize}
+	\item Darstellung des Konfigurationsraums als \textbf{Quadtree}
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{images/quadtree.png}
+	\end{center}
+	\item Kacheln finden, in denen sich Start- bzw. Zielkonfiguration befinden
+	\item Benachbarte freie Kacheln des Baums vom Start zum Ziel verbinden
+\end{itemize}
+\bigskip
+\textbf{$\mathbf{A^*}$-Algorithmus}:
+\begin{itemize}
+	\item Liefert kürzesten Pfad von Start nach Ziel
+	\item Diskretisiere kontinuierlichen Raum
+	\begin{center}
+		\includegraphics[width=0.4\textwidth]{images/a-s.png}
+	\end{center}
+	\item \textbf{Kostenfunktion}: $f(x)=g(x)+h(x)$, wobei $g(x)$ Kosten vom Start-Knoten zum Knoten $x$ und $h(x)$ geschätzte Kosten vom $x$ zum Ziel-Knoten entspricht
+	\item \textbf{Funktionsweise} ähnlich wie Dijkstra, s. \textit{7/66-76}
+	\item Für zulässige Heuristik $h$ ist $A^*$ optimal effizient und findet optimale Lösung
+\end{itemize}
+\bigskip
+\textbf{Potentialfelder}:
+\begin{itemize}
+	\item Roboter bewegt sich unter dem Einfluss von Kräften, welche ein \textbf{Potentialfeld} auf ihn ausübt
+	\item \textbf{Potentialfeld} $U$ ist eine Skalarfunktion über dem Freiraum $U\colon C_\text{free}\rightarrow \R$
+	\item Kraft in einem Punkt $\mathbf{q}$ ist der negative Gradient $F(\mathbf{q})=-\nabla U(\mathbf{q})$
+	\item Hindernisse erzeugen ein abstoßendes Potential, $\mathbf{q_\text{Ziel}}$ ein anziehendes Potential $\rightarrow$ $\mathbf{q}_\text{Ziel}$ soll das einzige Minimum sein
+	\item \textbf{Potentialfunktion}: \textit{7/82-85}
+	\item Für das Potential- und Kräftefeld gilt: $U(\mathbf{q})=U_{an}(\mathbf{q})+U_{ab}(\mathbf{q})$ und $F(\mathbf{q})=F_{an}(\mathbf{q})+F_{ab}(\mathbf{q})$
+	\begin{center}
+		\includegraphics[width=0.2\textwidth]{images/potfeld.png}
+	\end{center}
+	\item \textbf{Idee}: Roboter läuft entlang eines Tals zum Ziel
 \end{itemize}

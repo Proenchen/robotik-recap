@@ -83,11 +83,64 @@
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{images/asy-syn.png}
 	\end{center}
+	\begin{itemize}
+		\item Asynchron: Jedes Gelenk wird sofort mit der maximalen Beschleunigung angesteuert. Jede Gelenkbewegung endet unabhängig von den anderen
+		\item Synchron: Alle Gelenke beginnen und beenden ihre Bewegungen zum gleichen
+		Zeitpunkt
+	\end{itemize}
 \end{itemize}
 \bigskip
 \textbf{Synchrone PTP-Bahnen}:
 \begin{itemize}
 	\item Setze die maximale Fahrzeit als Fahrzeit für alle Gelenke:
 	$t_{e,i}=t_e=\max(t_{e,i})$
-	\item Bei \textbf{vollständig synchron}: Zusätzlich Beschleunigungszeit $t_a$ und Bremszeit $t_d$ bei allen Gelenken gleich
+	\item Bei \textbf{vollsynchron}: Zusätzlich Beschleunigungszeit $t_a$ und Bremszeit $t_d$ bei allen Gelenken gleich
+	\item Herleitung Formeln: \textit{5/38}
+\end{itemize}
+\bigskip
+\textbf{Steuerung im Arbeitsraum}:
+\begin{itemize}
+	\item \textbf{Continuous Path}: Endeffektor folgt in Position und Orientierung einer definierten Bahn
+	\item Pose des Endeffektors im Arbeitsraum gegeben durch Punkt $\mathbf{p}=(x,y,z)^\top\in\R^3$ und Orientierung $\boldsymbol{\omega}=(\alpha,\beta,\gamma)^\top\in\R^3$
+	\begin{center}
+		\includegraphics[width=\textwidth]{images/arbeitsraum.png}
+	\end{center}
+\end{itemize}
+\bigskip
+\textbf{Linearinterpolation}:
+\begin{center}
+	\includegraphics[width=0.4\textwidth]{images/lin.png}
+\end{center}
+\begin{itemize}
+	\item $p(t)=\mathbf{p}_\text{Start}+\frac{s_p(t)}{s_{ep}}\cdot (\mathbf{p}_\text{Ziel}-\mathbf{p}_\text{Start})$
+	\item \textbf{Berechnung} von $s_p(t)$ und $s_\omega(t)$: s. \textit{5/41-42}
+\end{itemize}
+\bigskip
+\textbf{Segmentweise Bahninterpolation mit kubischen Splines}:
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{images/splines.png}
+\end{center}
+\begin{itemize}
+	\item Polynom $f(t)=a_0+a_1 t+a_2t^2+a_3t^3$
+	\item \textbf{Gegeben}: Anfangspunkt $f(0)=s_a$, Endpunkt $f(t_e)=s_e$, Anfangsgeschwindigkeit $\dot{f}(0)=v_a$, Endgeschwindigkeit $\dot{f}(t_e)=v_e$
+	\item \textbf{Gesucht}: Parameter $a_0,a_1,a_2,a_3\in\R$
+	\item Berechnung s. \textit{5/46-50}
+\end{itemize}
+\bigskip
+\textbf{Approximierte Bahnsteuerung}:
+\begin{itemize}
+	\item \textbf{Bahninterpolation}: Ausgeführte Bahn verläuft durch alle Stützpunkte der Trajektorie
+	\item \textbf{Bahnapproximation}: Kontrollpunkte beeinflussen den Bahnverlauf und werden approximiert
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{images/approx.png}
+	\end{center}
+	\item \textbf{Überschleifen} vermeiden \enquote{roboterhafte} Bewegungen
+\end{itemize}
+\bigskip
+\textbf{Approximation mit Bernsteinpolynomen}:
+\begin{itemize}
+	\item \textbf{Bézierkurven}: Im Unterschied zu kubischen Splines verlaufen Bézierkurven nicht durch alle Stützpunkte $\mathbf{P}_i$, sondern werden nur von ihnen beeinflusst
+	$$P(t)=\sum\limits_{i=0}^{n} B_{i,n}(t)\mathbf{P}_i, \qquad \text{wobei } B_{i,n}(t)={n \choose i}t^i (1-t)^{n-i}$$
+	das $i$-te \textbf{Bernsteinpolynom} vom Grad $n$ ist
+	\item Annäherung an Bézierkurve durch \textbf{De-Casteljau-Algorithmus}, der darauf basiert, dass eine Bézierkurve geteilt und durch zwei aufeinanderfolgende Bézierkurven dargestellt wird
 \end{itemize}

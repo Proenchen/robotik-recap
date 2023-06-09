@@ -147,3 +147,116 @@
 	\end{center}
 	\item \textbf{Idee}: Roboter läuft entlang eines Tals zum Ziel
 \end{itemize}
+\bigskip
+Nun folgen Algorithmen für \textbf{Bewegungsplanung für Manipulatoren}.
+
+\textbf{Probabilistic Roadmaps}:
+\begin{itemize}
+	\item Approximation des Freiraumes durch einen Graphen (\textbf{Roadmap})
+	\item \textbf{Schritt 1}: Erzeugung eines kollisionsfreien Graphen durch Wählen zufälliger Punkte (\textbf{Sampling})
+	\begin{itemize}
+		\item Mit \textbf{lokalen Planer} wird überprüft, ob benachbarte Punkte miteinander verbunden werden können
+	\end{itemize}
+	\item \textbf{Schritt 2}: Verbinde $\mathbf{q}_\text{Start}$ und  $\mathbf{q}_\text{Ziel}$ mit dem Graphen und suche einen Weg von $\mathbf{q}_\text{Start}$ nach $\mathbf{q}_\text{Ziel}$ durch den Graphen (z.B. mit $A^*$)
+	\begin{center}
+		\includegraphics[width=0.4\textwidth]{images/prm.png}
+	\end{center}
+	\item \textbf{Vorteil}: Sehr gut geeignet für statische Umgebungen, Einmalige Konstruktion des Graphen
+	\item \textbf{Probleme}: Hängt stark vom verwendeten Sampling ab, Nicht vollständig, da der Graph den Freiraum nur approximiert
+\end{itemize}
+\bigskip
+\textbf{Dynamic Roadmaps} (DRM):
+\begin{itemize}
+	\item Approximation des Konfigurationsraums durch eine \textbf{Roadmap}
+	\item Approximation des Arbeitsraums durch \textbf{Voxel}
+	\item Abbildung $\Phi_{WC}$ von Voxel $\rightarrow$ Roadmap
+	\item \textbf{Vorgehen}:
+	\begin{enumerate}
+		\item Erzeugung einer selbstkollisionsfreien Roadmap durch Wählen zufälliger Punkte (Sampling)
+		\item Erzeugung der Abbildung $\Phi_{WC}$ durch Kollisionsüberprüfung zwischen allen Knoten/Kanten und allen Voxeln (sehr rechenaufwändig)
+		\item Ermittle alle Voxel mit Hindernis
+		\item Lösche alle zugehörigen Kanten und Knoten (mit $\Phi_{WC}$ ermittelt) aus der Roadmap
+		\item Verbinde $\mathbf{q}_\text{Start}$ und  $\mathbf{q}_\text{Ziel}$ mit dem Graphen und suche einen Weg von $\mathbf{q}_\text{Start}$ nach $\mathbf{q}_\text{Ziel}$ durch den Graphen
+	\end{enumerate}
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{images/drm.png}
+	\end{center}
+	\item \textbf{Distance Aware Dynamic Roadmap} (DA-DRM) löscht zusätzlich auch alle Voxel in der Nähe von Hindernissen
+\end{itemize}
+\bigskip
+\textbf{Rapidly-exploring Random Trees} (RRT):
+\begin{itemize}
+	\item Algorithmus zur Verarbeitung von einmaligen Anfragen, Keine Vorverarbeitung notwendig
+	\item Probabilistisch vollständiger, randomisierter Algorithmus
+	\item Form von $C_\text{obs}$ im Konfigurationsraum ist unbekannt $\rightarrow$ Kollisionsprüfung im Arbeitsraum
+	\pagebreak
+	
+	\item \textbf{Vorgehen}:
+	\begin{enumerate}
+		\item Erzeuge leeren Baum $T$ und füge $\mathbf{q}_\text{Start}$ in $T$ ein
+		\item Erzeuge einen zufälligen Punkt $\mathbf{q}_S$
+		\item Bestimme den nächsten Nachbarn $\mathbf{q}_{nn}$ in $T$
+		\item Füge Punkte auf der Verbindung zwischen $\mathbf{q}_S$ und $\mathbf{q}_{nn}$ in $T$ mit Schrittweite $d$ ein, prüfe jeden der Teilpfade auf Kollision und stoppe, wenn eine Kollision erkannt wurde
+		\item Gehe zu 2.
+	\end{enumerate}
+	\item \textbf{Visuelles Beispiel}: \textit{7/109-119}
+	\item \textbf{Bidirektionale RRTs}: Baue mit obigem Verfahren 2 Bäume auf, einen von $\mathbf{q}_\text{Start}$ und einen von $\mathbf{q}_\text{Ziel}$ ausgehend. Eine Lösung ist gefunden, wenn beide Bäume mit $\mathbf{q}_S$ verbunden wurden
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{images/bidirektional-rrt.png}
+	\end{center}
+	\item \textbf{Nachbearbeitung (Smoothing)}: Falls Verbindung zwischen zwei zufälligen Konten des Lösungsweges kollisionsfrei ist, dann füge Kante zwischen beiden Knoten hinzu und lösche alle dazwischenliegenden Knoten aus dem Lösungspfad $\rightarrow$ Erzeugt glattere Trajektorien
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{images/smoothing.png}
+	\end{center}
+\end{itemize}
+\bigskip
+\textbf{Constrained RRT}:
+\begin{itemize}
+	\item Bei der Bewegungsplanung müssen evtl. Nebenbedingungen erfüllt werden
+	\item \textbf{Raum der Nebenbedingungen} $C_{NB}\subseteq C$ können niederdimensionale Gebilde im Konfigurationsraum darstellen
+	\item \textbf{Idee}: Projiziere eine Stichprobe $\mathbf{q}_S$ auf eine Konfiguration $\mathbf{q'}_S$, die die Nebenbedingung erfüllt
+	\pagebreak
+	
+	\item \textbf{Randomized Gradient Descent}:
+	\begin{enumerate}
+		\item Zufällige Bestimmung von $n$ Nachbarn von $\mathbf{q}_S$
+		\item Falls die Distanz eines Nachbarn zu $C_{NB}$ kleiner als die Distanz von $\mathbf{q}_S$ zu $C_{NB}$, ersetze $\mathbf{q}_S$ mit diesem Nachbarn
+		\item Wiederholen bis maximale Iterationszahl erreicht oder die Distanz von $\mathbf{q}_S$ zu $C_{NB}$ kleiner ist als $\alpha$
+	\end{enumerate}
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{images/rgd.png}
+	\end{center}
+	\item \textbf{First Order Retraction}: Berechne $\mathbf{q'}_S$ mithilfe der Jacobi-Matrix
+\end{itemize}
+\bigskip
+\textbf{RRT$\boldsymbol{^*}$}: 
+\begin{itemize}
+	\item RRT$^*$ optimiert Suchbaum iterativ während der Suche
+	\item Optimierung des Suchbaums aufgeteilt in zwei Schritte:
+	\begin{enumerate}
+		\item Ermittle zu jedem neuen Knoten die Kosten 
+		\item Rewiring des Suchbaums beim Hinzugefügen neuer Knoten
+		\item Siehe \textit{7/135-138}
+	\end{enumerate}
+	\item \textbf{Nachteil}: Längere Laufzeiten, Uni-direktionaler Ansatz
+\end{itemize}
+\bigskip 
+\textbf{Enge Passagen}:
+\begin{itemize}
+	\item \textbf{Problem}: Klassische RRTs können viel Zeit benötigen, bis eine Lösung für einen Durchgang durch eine enge Passage gefunden wird
+	\item \textbf{Ideal}: Nur in sichtbarer Voronoi Region eines Knotens sampeln $\rightarrow$ \textbf{Problem}: Berechnung aufwendig $\rightarrow$ Approximation durch Kugel mit Radius $r$ (\textbf{Dynamic Domain})
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{images/voronoi-sichtbar.png}
+	\end{center}
+	\item \textbf{Bridge Sampling}: 
+	\begin{enumerate}
+		\item Wähle gleichverteilt einen zufälligen Punkt $\mathbf{q}_1\in C_\text{obs}$
+		\item Wähle nach einer geeigneten Wahrscheinlichkeitsverteilung einen zweiten Punkt $\mathbf{q}_2\in C_\text{obs}$ in der Nähe von $\mathbf{q}_1$
+		\item Wenn der Mittelpunkt $\mathbf{q}_S$ zwischen $\mathbf{q}_1$
+		und $\mathbf{q}_2$ in $C_\text{free}$ liegt, dann verwende ihn als neue Stichprobe
+		\item Wiederhole
+	\end{enumerate}
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{images/bridge-sampling.png}
+	\end{center}
+\end{itemize}

@@ -190,7 +190,7 @@ Es folgen \textbf{Hochpassfilter} zur Kantendetektion.
 	\item \textbf{Schließen}: Anwendung von Dilatation danach Erosion, Überbrückung kleiner Distanzen und Schließung von inneren Löchern
 \end{itemize}
 \bigskip
-\textbf{Segmentierung}: Aufteilung einer Menge in aussagekräftige Segmente\\
+\textbf{Segmentierung}: Aufteilung einer Menge in aussagekräftige Segmente
 
 \textbf{Schwellenwertfilterung}: Intensität von jedem Pixel $(u,v)$ wird mit einem vordefinierten Schwellwert $T$ verglichen
 $$\text{Img'}(u,v)=\begin{cases}
@@ -201,3 +201,52 @@ $$\text{Img'}(u,v)=\begin{cases}
 	\item Objekte können auch über ihre Farbe segmentiert werden $\rightarrow$ Vergleiche z.B. $H,S,I$ Werte
 	\item \textbf{Problem}: Wechselnde Lichtbedingungen, Reflexionen, Schattenwürfe
 \end{itemize}
+\bigskip
+\textbf{Canny-Kantendetektor}:
+\begin{itemize}
+	\item Basiert auf 3 Grundsätzen:
+	\begin{enumerate}
+		\item \textbf{Geringe Fehlerrate}: Alle Kanten sollen gefunden werden und detektierte Kanten sollten so nah wie möglich an den realen Kanten sein
+		\item \textbf{Gute Detektion}: Distanz zwischen detektierten Kantenpunkten und dem Zentrum der realen Kanten soll minimal sein
+		\item \textbf{Eindeutigkeit}: Detektor liefert nur ein Punkt zu einem realen Kantenpunkt
+	\end{enumerate}
+	\item \textbf{Algorithmus}:
+	\begin{enumerate}
+		\item \textbf{Gauß-Filter} $\rightarrow$ Rauschunterdrückung
+		\item Berechnung der \textbf{Intensitätsgradienten}
+		\item \textbf{Non-Maximum Suppression}: Kantenausdünnung. Alle Pixel, die kein Maximum darstellen, werden unterdrückt
+		\item \textbf{Double Threshold} zur Entfernung schwach verbundener Kantenpixel
+		\item Kantenverfolgung mit \textbf{Hysterese}
+	\end{enumerate}
+\end{itemize}
+
+\textbf{Visual Servoing}: Verfahren bei denen visuelle Eingabedaten genutzt werden, um die Bewegung eines Roboters zu steuern
+\begin{itemize}
+	\item \textbf{Kamera-in-Hand} oder \textbf{externe (feste) Kamera}
+	\item \textbf{Interaction Matrix / Image Jacobian} beschreibt die Beziehung zwischen der Geschwindigkeiten eines Bildmerkmals und eines der Kamera:
+	$$\dot{s}=L(u,v,z)\cdot\dot{p}$$
+\end{itemize}
+\bigskip
+\textbf{Registrierung von Punktwolken}: Zusammenführen von Punktwolken, welche das gleiche Objekt aus unterschiedlichen Ansichten beschreibt
+
+\textbf{Iterative Closest Point}: Algorithmus für die Registrierung zweier Mengen $A,B$
+\begin{itemize}
+	\item Durchführung siehe Übungsblatt 7
+	\item \textbf{Vorteile}: Algorithmus für viele Darstellungsformen anwendbar, Einfache mathematische Operationen, Schnelles Registrierungsergebnis
+	\item \textbf{Nachteile}: Überlappung der Punktwolken erforderlich, Symmetrische Objekte können nicht registriert werden, Konvergenz in ein lokales Minimum möglich
+\end{itemize}
+\bigskip
+\textbf{RANSAC - Random Sample Consensus}:
+\begin{itemize}
+	\item Iterative Methode zur Schätzung von Modellparametern aus Datenpunkten
+	\item \textbf{Algorithmus}:
+	\begin{enumerate}
+		\item Wähle zufällig die minimale Anzahl an Punkten aus, die nötig ist um die Modellparameter zu berechnen
+		\item Schätzung des Modell aus dem ausgewählten Datensatz
+		\item Bewertung der Modellschätzung
+		\item Wiederhole 1-3 bis das Modell mit den meisten Inliers gefunden wird
+	\end{enumerate}
+	\item \textbf{Vorteile}: Einfach zu implementieren, Robuste Modellschätzung für Daten mit wenigen Ausreißern, Vielseitig anwendbar
+	\item \textbf{Nachteile}: Nicht-deterministisch, Benötigt viele Iterationen, Nicht anwendbar wenn das Verhältnis Inliers/Outliers zu klein ist
+\end{itemize}
+\pagebreak

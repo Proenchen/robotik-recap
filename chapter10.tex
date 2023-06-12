@@ -1,1 +1,94 @@
 \section{Roboterprogrammierung}
+
+\textbf{Programmierort}:
+\begin{itemize}
+	\item \textbf{Direkte Programmierung (on-line)}: Programmierung direkt am Roboter
+	\item \textbf{Indirekte Programmierung (off-line)}: Programmierung erfolgt ohne den Roboter mit Hilfe textueller, graphischer, interaktiver Methoden
+\end{itemize}
+\bigskip
+\textbf{Abstraktionsgrad der Programmierung}:
+\begin{itemize}
+	\item \textbf{Explizite oder roboterorientierte Programmierung (imperativ)}: Bewegungen und Greiferbefehle sind direkt in eine Programmiersprache eingebunden
+	\item \textbf{Implizite oder aufgabenorientierte Programmierung (deklarativ)}: Aufgabe, die der Roboter durchführen soll, wird beschrieben, z.B. in Form von Zuständen
+\end{itemize}
+\bigskip
+\textbf{Direkte Programmierung}:
+\begin{itemize}
+	\item \textbf{Teach-In Programmierung}: 
+	\begin{enumerate}
+		\item Anfahren markanter Punkte der Bahn mit manueller Steuerung
+		\item Speichern der Gelenkwinkelwerte
+		\item Nachträgliche Ergänzung der gespeicherten Werte um weitere Parameter wie Geschwindigkeit, Beschleunigung usw.
+	\end{enumerate}
+	Anwendung in der Fertigungsindustrie oder bei Handhabungsaufgaben
+	\item \textbf{Play-Back}: Abfahren der gewünschten Bahn und Speichern der Gelenkwerte. Anwendung:
+	\begin{itemize}
+		\item Mathematisch schwer beschreibbare Bewegungsabläufe
+		\item Integrierung der handwerklichen Erfahrung des Bedieners
+	\end{itemize}
+	\item \textbf{Master-Slave-Programmierung}: Bediener führt einen kleinen, leicht bewegbaren Master-Roboter $\rightarrow$ Bewegung wird auf den Slave-Roboter übertragen und synchron ausgeführt
+	\begin{itemize}
+		\item Anwendung: Handhabung großer Lasten bzw. großer Roboter
+	\end{itemize}
+	\item \textbf{Sensorunterstützte Programmierung}: 
+	\begin{itemize}
+		\item \textbf{Manuell}: Bediener führt Programmiergriffel entlang der abzufahrenden Bahn $\rightarrow$ Erfassung der Bewegung durch externe Sensoren
+		\item \textbf{Automatisch}: Vorgabe des Start- und Zielpunktes und Sensorische Abtastung der Sollkontur
+		\item Anwendung: Schleifen, Entgraten von Werkstücken
+	\end{itemize}
+\end{itemize}
+\bigskip
+\textbf{Bewertung - Direkte Programmierung}:
+\begin{itemize}
+	\item \textbf{Vorteile}:
+	\begin{itemize}
+		\item Schnell bei einfachen Trajektorien
+		\item Sofort anwendbar
+		\item Geringe Fehleranfälligkeit
+		\item Keine Programmierkenntnisse benötigt
+		\item Kein Modell der Umwelt erforderlich
+	\end{itemize}
+	\item \textbf{Nachteile}: 
+	\begin{itemize}
+		\item Hoher Aufwand bei komplexen Trajektorien
+		\item Nur mit und am Roboter möglich
+		\item Spezifisch für einen Robotertyp
+		\item Verletzungsgefahr durch Roboter
+		\item Keine Adaption an neue Gegebenheiten
+	\end{itemize}
+\end{itemize}
+\bigskip
+\textbf{Textuelle Programmierverfahren}: Programmierung erfolgt mittels erweiterter, höherer Programmiersprachen 
+\begin{itemize}
+	\item \textbf{Vorteile}: 
+	\begin{itemize}
+		\item Programmierung kann unabhängig vom Roboter erfolgen
+		\item Strukturierte, übersichtliche Programmierlogik
+		\item Erstellung komplexer Programme
+	\end{itemize}
+	\item \textbf{Nachteile}: Bediener benötigt Programmierkenntnisse
+\end{itemize}
+\bigskip
+\textbf{Hybride Verfahren}: Graphische Programmierung basierend auf sensorieller Erfassung der
+Benutzervorführung $\rightarrow$ Simulation der Roboterprogramme
+\begin{itemize}
+	\item \textbf{Vorteile}:
+	\begin{itemize}
+		\item Weniger Programmierkenntnisse als bei textueller Programmierung
+		\item Einfach, leichte Fehlererkennung
+		\item Schnelles Erstellen komplexer Programme
+	\end{itemize}
+	\item \textbf{Nachteile}:
+	\begin{itemize}
+		\item Sensorielle Benutzererfassung noch zu ungenau
+		\item Leistungsfähige Hardware benötigt, Komplexe Modelle
+	\end{itemize}
+\end{itemize}
+\bigskip
+\textbf{Graphische Programmierung mit Statecharts}:
+\begin{itemize}
+	\item Hierarchisch aufgebauter Zustandsautomat
+	\item Parallele Ausführung durch gestrichelte Linie
+	\item Zustandsphasen \textbf{entry} (beim Betreten ausgeführt), \textbf{throughout} (währenddessen ausgeführt), \textbf{exit} (beim Verlassen ausgeführt)
+	\item s. \textit{10/36-48}
+\end{itemize}
